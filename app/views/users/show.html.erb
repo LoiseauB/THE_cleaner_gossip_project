@@ -1,0 +1,16 @@
+<div>
+</div>
+<div class="grid text-center">
+  <div class="row row-cols-1 row-cols-md-2 g-4 d-flex align-items-center">
+    <div class="g-col-5">
+        <img src="https://i.imgur.com/VoLdiML.jpg" style="width: 80%">
+    </div>
+    <div class="g-col-5">
+        <h1 class="p-3" style="color: rgb(110, 76, 7)">Fiche de l'auteur:</h1>
+        <h2 class="p-3"><%= "#{@user.first_name} #{@user.last_name}, #{@user.age} ans" %></h2>
+        <p class="p-3">description: <%= @user.description %></p>
+        <p class="p-3"><%= "email: #{@user.email}"%></p>
+        <p class="city_name p-3">Ville: <%= link_to "#{@user.city.name}", city_path(@user.city.id) %></p>
+    </div>
+  </div>
+</div>

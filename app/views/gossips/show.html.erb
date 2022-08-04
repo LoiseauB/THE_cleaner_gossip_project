@@ -1,0 +1,79 @@
+<div>
+</div>
+<div class="grid text-center">
+  <div class="row row-cols-1 row-cols-md-2 g-4 d-flex align-items-center">
+    <div class="g-col-5">
+      <h3 class="p-3">Des précisions à propos de ce potin ?</h3>
+      
+      <h4 class="p-3">Titre: <%= @gossip.title%></h4>
+      <h5 class="p-3">Auteur: <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_path(@gossip.user.id), class:"author"%></h5>
+      <p class="city_name p-3">Ville: <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city.id) %></p>
+      <blockquote class="blockquote">
+        <p class="mb-0">Contenu: <%= @gossip.content%></p>
+      </blockquote>
+      <p class="p-3">Créé le: <%= @gossip.created_at.strftime("%d/%m/%Y à %Hh%M")%></p>
+      <% if already_exist?(@gossip)%>
+          <div class="p-2">
+          <button  type="button" class="btn btn-outline-invisible position-relative btn-sm"> <%= link_to "♥", gossip_like_path(@gossip.id, :id), method: :delete, class:"likes" %> 
+          <span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-secondary"><%= @gossip.likes.length%><span class="visually-hidden">nombre de likes</span>
+          </button>
+          </div>
+          <% else %>
+          <div class="p-2">
+          <button  type="button" class="btn btn-outline-invisible position-relative btn-sm"><%= link_to "♡", gossip_likes_path(@gossip.id), method: :post, class:"likes" %><span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-secondary"><%= @gossip.likes.length%><span class="visually-hidden">unread messages</span>
+          </button>
+          </div> 
+        <% end %> 
+      <% if is_owner? %>
+      <div class="d-flex justify-content-evenly"> 
+        <div>
+          <%= link_to "Modifier", edit_gossip_path(@gossip.id), class: "btn btn-warning d-inline-flex justify-content-center p-3"%>
+        </div>
+        <div>
+          <%= link_to "Supprimer", gossip_path(@gossip.id), class: "btn btn-danger d-inline-flex justify-content-center p-3", :data => {:confirm => 'Are you sure?', :method => "DELETE"} %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    
+    <div class="g-col-5">
+      <img src="https://i.imgur.com/WFzrYz9.jpg" style="width: 80%"> 
+    </div>
+  </div>
+</div>
+<div style="width: 100vw">
+  <h3>section commentaires:<h3>
+  <div class="row row-cols-1 row-cols-md-2 comment_section">
+    <div class="g-col-5">
+      <% @comments.each do |comment| %>
+        <div class="row comment">
+          <div class="col-sm-3">
+            <div class="comment_author">
+              <p><%=comment.user.first_name%> <%=comment.user.last_name%> : <%= link_to "📑", edit_gossip_comment_path(@gossip.id, comment.id) %></p>
+            </div>
+          </div>
+          <div class="g-col-5">
+            <div class="well">
+              <p><%=comment.content%></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="g-col-5 create_comment">
+      <%= form_for ([@gossip, @gossip.comments.build]) do |f| %>
+        
+        <div class="form-group", style="width: 500px; padding: 15px">
+        <h5>Ecrire un commentaire: </h5>
+          <%= f.text_area :content, class:"form-control"%>
+        </div>
+
+        <div class="form-group justify-content-end" , style="width: 500px">
+          <div class="actions">
+          <%= f.submit "Commenter", class: "btn btn-warning d-inline-flex justify-content-center p-2 mt-3"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

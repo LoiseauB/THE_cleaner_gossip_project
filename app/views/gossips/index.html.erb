@@ -1,0 +1,51 @@
+<% begin %>
+<% unless @gossip.errors.any? %>
+  <div class="alert alert-success w-100" role="alert">
+  <p>Votre potin a été ajouté/modifié avec succès</p>
+  </div>
+<% end %>
+<%rescue => e %>
+<%end%>
+<% if notice %>
+  <p class="alert alert-danger"><%= notice %></p>
+<% end %>
+<% if success %>
+  <p class="alert alert-success"><%= success %></p>
+<% end %>
+
+<img src="https://i.imgur.com/OVqr7zI.jpg" class="img-fluid">
+<div class="home_welcome text-center">
+  <h1 class= "text-center display-1" style="padding-bottom: 50px">Bienvenue à toi jeune pirate</h1>
+  <%= link_to "Cliques ici pour créer ton gossip", new_gossip_path, class: "btn btn-warning d-inline-flex justify-content-center p-3"%>
+</div>
+
+<h4 style="padding-top: 40px; padding-left: 40px; text-decoration: underline" >Voici la liste complète des potins:</h4>
+
+<div class="row row-cols-1 row-cols-md-4 g-4 px-4">
+  <% @gossips.each do |gossip| %>
+  <div class="col p-5 d-flex justify-content-center">
+    <div class="card" style="width: 40rem; box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px; background-color: #f8f8f3">
+      <img src="https://i.imgur.com/U4bK2H1.png" class="card-img-top opac_img" alt="message_bottle">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h5 class="card-title"><%= gossip.title %></h5>
+          <p class="card-text">Auteur(e) : <%= gossip.user.first_name%></p>
+          <p class="card-text">Coms : <%= gossip.comments.length%>
+          <div class="like_dislike">
+            <% if already_exist?(gossip) %>
+            <div class="p-1">
+              <button  type="button" class="btn btn-outline-light position-relative "> <%= link_to "♥", gossip_like_path(gossip.id, :id), method: :delete, class: "likes" %><span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-secondary"><%= gossip.likes.length%><span class="visually-hidden">nombre de likes</span></span>
+              </button>
+            </div>
+            <% else %>
+            <div class="p-1">
+              <button  type="button" class="btn btn-outline-light position-relative "> <%= link_to "♡", gossip_likes_path(gossip.id), method: :post, class: "likes" %><span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-secondary"><%= gossip.likes.length%><span class="visually-hidden">nombre de likes</span></span>
+              </button>
+            </div>
+            <% end %>
+          </div>
+          <%= link_to "Afficher le potin", gossip_path(gossip.id), class: "btn btn-secondary d-flex justify-content-center align-items-end"%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
