@@ -41,9 +41,9 @@
     </div>
   </div>
 </div>
-<div style="width: 100vw">
-  <h3>section commentaires:<h3>
-  <div class="row row-cols-1 row-cols-md-2 comment_section">
+<div style="width: 100vw; padding-left: 20px">
+  <h3>section commentaires:</h3>
+  <div class=" row row-cols-1 row-cols-md-2 d-flex justify-content-between" style="width: 95%">
     <div class="g-col-5">
       <% @comments.each do |comment| %>
         <div class="row comment">
@@ -60,15 +60,15 @@
         </div>
       <% end %>
     </div>
-    <div class="g-col-5 create_comment">
+    <div class="g-col-5" style="width: 50%">
       <%= form_for ([@gossip, @gossip.comments.build]) do |f| %>
         
-        <div class="form-group", style="width: 500px; padding: 15px">
+        <div class="form-group", style="flex: 3; padding: 15px">
         <h5>Ecrire un commentaire: </h5>
           <%= f.text_area :content, class:"form-control"%>
         </div>
 
-        <div class="form-group justify-content-end" , style="width: 500px">
+        <div class="form-group justify-content-end" , style="flex: 1">
           <div class="actions">
           <%= f.submit "Commenter", class: "btn btn-warning d-inline-flex justify-content-center p-2 mt-3"%>
           </div>
