@@ -6,16 +6,11 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       log_in(user)
-      
+      if params[:remember] == "yes"
       remember(user, params[:password])
-    puts "##############"
-    puts user
-    puts "###############"
-    puts "******************************"
-    remember_digest = user.remember_digest
-    puts remember_digest
-    puts "******************************"
-      #render "index", success: "Vous êtes connecté batard!"
+      end
+    
+      redirect_to root_path, success: "Vous êtes connecté batard!"
     else
       redirect_to new_session_path, notice: 'Invalid email/password combination'
     end
