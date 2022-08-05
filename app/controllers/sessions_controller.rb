@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       log_in(user)
       if params[:remember] == "yes"
-      remember(user, params[:password])
+      remember(user)
       end
     
       redirect_to root_path, success: "Vous êtes connecté batard!"

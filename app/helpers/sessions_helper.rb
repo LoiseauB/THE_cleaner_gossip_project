@@ -19,7 +19,7 @@ module SessionsHelper
     current_user.nil?
   end
   
-  def remember(user, pass)
+  def remember(user)
     puts"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     # ici je vais créer un remember_token qui est une suite aléatoire de caractères
     remember_token = SecureRandom.urlsafe_base64
@@ -28,7 +28,7 @@ module SessionsHelper
     puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
 
     # j'ai mon token, je vais stocker son digest en base de données :    
-    user.remember(remember_token, pass)
+    user.remember(remember_token)
     
     #  maintenant, je vais créer les cookies : un cookie qui va conserver l'user_id, et un autre qui va enregistrer le remember_token
     cookies.permanent[:user_id] = user.id
@@ -38,9 +38,10 @@ module SessionsHelper
   end
 
   def forget(user)
-
+    puts "@@@@@@@@@@@@@@@@@@"
+    puts user.password
     # on remet le remember_digest à nil puisqu'il ne nous servira plus :
-    user.update(remember_digest: nil)
+    user.update_attributes!("remember_digest" => nil)
 
     # on efface les cookies dans le navigateur de l'utilisateur
     cookies.delete(:user_id)
@@ -49,6 +50,7 @@ module SessionsHelper
   end
 
   def log_out(user)
+    puts "#######################################"
     session.delete(:user_id)
     forget(user)
   end
