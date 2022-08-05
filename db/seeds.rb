@@ -10,7 +10,7 @@ end
 #  CREATION OF USERS --------------------------------------
 
 10.times do
-  User.create!(first_name: Faker::Games::Heroes.name, last_name: Faker::FunnyName.name, city: City.all.sample, description: Faker::Movies::BackToTheFuture.quote, email: Faker::Internet.email, age: rand(15..65))
+  User.create!(first_name: Faker::Games::Heroes.name, last_name: Faker::FunnyName.name, city: City.all.sample, description: Faker::Movies::BackToTheFuture.quote, email: Faker::Internet.email, age: rand(15..65), password: "azertyuiop")
 end
 
 #  CREATION OF GOSSIPS --------------------------------------
