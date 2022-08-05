@@ -12,5 +12,9 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'Invalid email or password'
       render 'new'
     end    
-  end  
+  end
+
+  def update
+  end
+
 end

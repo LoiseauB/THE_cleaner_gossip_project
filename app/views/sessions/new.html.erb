@@ -38,6 +38,8 @@
     </div>
     <% if logged_in? %>
     <div>
+      <%= label_tag "Se souvenir de moi" %>
+      <%= check_box_tag "remember", "yes", "no" %>
         <%= submit_tag 'se connecter', class:"btn btn-warning mb-5"%>
     </div>
     <%else%>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy]
   end
   resources :cities, only: [:show]
-  resources :users, only: [:show, :create, :new]
+  resources :users, only: [:show, :create, :new, :update]
   resources :sessions, only: [:new, :create, :destroy]
   resources :contacts, only: [:show]
   resources :team, only: [:show]
