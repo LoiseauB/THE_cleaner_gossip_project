@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module TheCleanGossipProject
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.assets.initialize_on_precompile = false
+    config.serve_static_assets = true
     config.load_defaults 5.2
     config.time_zone = "Paris"
     config.active_record.default_timezone = :local
